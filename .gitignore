@@ -9,7 +9,6 @@ yarn-error.log*
 pnpm-lock.yaml
 
 # Environment and configuration files
-settings.json
 .env
 .DS_Store
 
