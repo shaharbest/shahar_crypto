@@ -1,0 +1,19 @@
+# Meteor build artifacts
+.meteor/local
+.meteor/dev_bundle
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# Environment and configuration files
+settings.json
+.env
+.DS_Store
+
+# OS-specific files
+Thumbs.db
+*.swp
+*.swo
