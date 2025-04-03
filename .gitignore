@@ -1,12 +1,10 @@
 # Meteor build artifacts
-.meteor/local
-.meteor/dev_bundle
+app/.meteor/local
+app/.meteor/dev_bundle
 
 # Node dependencies
-node_modules/
-npm-debug.log*
-yarn-error.log*
-pnpm-lock.yaml
+app/node_modules/
+app/npm-debug.log*
 
 # Environment and configuration files
 .env
