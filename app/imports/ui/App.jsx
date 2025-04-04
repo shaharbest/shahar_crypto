@@ -1,46 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Button,
-  Typography,
   ConfigProvider,
   theme,
   Layout,
+  Typography,
+  Switch,
   Flex,
+  Image,
 } from 'antd';
-import Coins from './Coins.jsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Main from './Main.jsx';
 
-const { Header, Content, Footer } = Layout;
+const { Header } = Layout;
+const { Title } = Typography;
 
-const { Title, Paragraph } = Typography;
+const queryClient = new QueryClient();
 
-export const App = () => (
-  <ConfigProvider
-    theme={{
-      algorithm: theme.darkAlgorithm,
-    }}
-  >
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header>
-        <Flex align="center" style={{ height: '100%' }}>
-          <Title style={{ marginInline: 'auto' }}>
-            Shahar Mini Project
-          </Title>
-        </Flex>
-      </Header>
+export const App = () => {
+  const [isDark, setIsDark] = useState(true);
 
-      <Content style={{ padding: '1rem' }}>
-        <Button type="primary" onClick={() => alert('Hello World!')}>
-          Annoying Button
-        </Button>
-
-        <Coins />
-      </Content>
-
-      <Footer>
-        <Paragraph style={{ textAlign: 'center' }}> 
-          Created by Shahar Best
-        </Paragraph>
-      </Footer>
-    </Layout>
-  </ConfigProvider>
-);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider
+        theme={{
+          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+          components: { Layout: { headerBg: isDark ? '#001529' : '#fff', } },
+        }}
+      >
+        <Layout style={{ minHeight: '100vh' }} theme={isDark ? 'dark' : 'light'}>
+          <Header style={{ marginBlock: '0' }}>
+            <Flex
+              justify="space-between"
+              align="center"
+              style={{ height: '100%' }}
+            >
+              <img
+                src="https://shaharbest.com/logo.png"
+                alt="Logo"
+                style={{ width: '2rem', height: '2rem' }}
+              />
+              <Switch
+                size="default"
+                style={{ marginInlineStart: 'auto' }}
+                checkedChildren="Dark"
+                unCheckedChildren="Light"
+                checked={isDark}
+                onChange={(checked) => setIsDark(checked)}
+              />
+            </Flex>
+          </Header>
+          <Main />
+        </Layout>
+      </ConfigProvider>
+    </QueryClientProvider>
+  );
+};
