@@ -39,7 +39,7 @@ export const App = () => {
                 alt="Logo"
                 style={{ width: '2rem', height: '2rem' }}
               />
-              <span>test4</span>
+              <span>test5</span>
               <Switch
                 size="default"
                 style={{ marginInlineStart: 'auto' }}
