@@ -6,13 +6,11 @@ import {
   Typography,
   Switch,
   Flex,
-  Image,
 } from 'antd';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Main from './Main.jsx';
 
 const { Header } = Layout;
-const { Title } = Typography;
 
 const queryClient = new QueryClient();
 
@@ -24,7 +22,12 @@ export const App = () => {
       <ConfigProvider
         theme={{
           algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          components: { Layout: { headerBg: isDark ? '#001529' : '#fff', } },
+          components: {
+            Layout: { headerBg: isDark ? '#001529' : '#fff' },
+            Statistic: {
+              contentFontSize: '1rem',
+            } 
+          },
         }}
       >
         <Layout style={{ minHeight: '100vh' }} theme={isDark ? 'dark' : 'light'}>

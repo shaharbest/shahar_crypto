@@ -1,7 +1,10 @@
 import React from 'react';
 import {
-  List,
+  Flex,
+  Image,
   Statistic,
+  Table,
+  Result,
 } from 'antd';
 import { useQuery } from '@tanstack/react-query';
 
@@ -13,57 +16,70 @@ const getCoins = async () => {
   return await res.json();
 }
 
-// {
-//     "id": "tether",
-//     "symbol": "usdt",
-//     "name": "Tether",
-//     "image": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
-//     "current_price": 0.99958,
-//     "market_cap": 144026224412,
-//     "market_cap_rank": 3,
-//     "fully_diluted_valuation": 144026224412,
-//     "total_volume": 37932295343,
-//     "high_24h": 1,
-//     "low_24h": 0.999418,
-//     "price_change_24h": -0.00036320319308436,
-//     "price_change_percentage_24h": -0.03632,
-//     "market_cap_change_24h": 168664,
-//     "market_cap_change_percentage_24h": 0.00012,
-//     "circulating_supply": 144086679997.8651,
-//     "total_supply": 144086679997.8651,
-//     "max_supply": null,
-//     "ath": 1.32,
-//     "ath_change_percentage": -24.45149,
-//     "ath_date": "2018-07-24T00:00:00.000Z",
-//     "atl": 0.572521,
-//     "atl_change_percentage": 74.59251,
-//     "atl_date": "2015-03-02T00:00:00.000Z",
-//     "roi": null,
-//     "last_updated": "2025-04-04T01:18:47.318Z"
-//   },
+const columns = [
+  {
+    title: 'Coin',
+    dataIndex: 'image',
+    render: (image, coin) => (
+      <Flex align="center" gap={8}>
+        <Image
+          src={image}
+          alt={coin.name}
+          width='2rem'
+          preview={false}
+        />
+        {coin.name}
+      </Flex>
+    ),
+  },
+  {
+    title: 'Price',
+    dataIndex: 'current_price',
+    render: price => <Statistic value={price} prefix="$" />,
+    align: 'right',
+  },
+  {
+    title: 'Market Cap',
+    dataIndex: 'market_cap',
+    render: marketCap => <Statistic value={marketCap} prefix="$" />,
+    align: 'right',
+  },
+  {
+    title: '24h Volume',
+    dataIndex: 'total_volume',
+    render: volume => <Statistic value={volume} prefix="$" />,
+    align: 'right',
+  },
+  {
+    title: '24h Change',
+    dataIndex: 'price_change_percentage_24h',
+    render: change => <Statistic value={change} suffix="%" />,
+    align: 'right',
+  },
+];
 
 export default () => {
   const query = useQuery({ queryKey: ['coins'], queryFn: getCoins });
 
-  if (query.isLoading) return <div>Loading...</div>;
-
-  if (query.isError) return <div>Error: {query.error.message}</div>;
+  if (query.isError) {
+    return (
+      <Result
+        status="error"
+        title="Error"
+        subTitle={query.error.message}
+      />
+    );
+  }
 
   const { data: coins } = query;
 
   return (
-    <List
-      style={{ maxWidth: '50rem', marginInline: 'auto' }}
-      dataSource={coins}
-      renderItem={(coin) => (
-        <List.Item>
-          <List.Item.Meta
-            avatar={<img src={coin.image} alt={coin.name} width={50} />}
-            title={<a href={`https://www.coingecko.com/en/coins/${coin.id}`}>{coin.name}</a>}
-            description={<Statistic value={coin.current_price} prefix="$" />}
-          />
-        </List.Item>
-      )}
+    <Table
+      rowKey="id"
+      loading={query.isLoading}
+      dataSource={query.isLoading ? [] : coins}
+      pagination={false}
+      columns={columns}
     />
-  )
+  );
 };
