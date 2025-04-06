@@ -41,17 +41,17 @@ next_version="${major}.${minor}.${next_patch}"
 
 echo "Next version: $next_version"
 
-# Build the Docker image with the new version tag
-docker build -t "${docker_image_name}:${next_version}" .
 
-# Push the Docker image
+docker build -t "${docker_image_name}:${next_version}" .
 docker push "${docker_image_name}:${next_version}"
+
+sed -i "s/^APP_VERSION=.*$/APP_VERSION=${next_version}/" .env
 
 echo "Successfully built and pushed ${docker_image_name}:${next_version}"
 
-# Update the APP_VERSION in your local .env file
-sed -i "s/^APP_VERSION=.*$/APP_VERSION=${next_version}/" .env
-
 echo "Updated APP_VERSION in local .env to: ${next_version}"
 
-echo "Now, on your production server, update the APP_IMAGE in the .env file to: ${docker_image_name}:${next_version} and restart the app service."
+echo "Edit in vps the .env APP_VERSION to: ${next_version}"
+
+echo "After that, run:"
+echo "docker compose app up -d pull=always"
