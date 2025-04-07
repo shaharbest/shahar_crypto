@@ -18,6 +18,7 @@ const techList = [
   'MongoDB',
   'Docker',
   'Vite',
+  'Typescript',
 ];
 
 export default () => (
