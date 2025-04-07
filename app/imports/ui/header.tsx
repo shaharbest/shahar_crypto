@@ -1,19 +1,7 @@
 import React from 'react';
-import { Switch, Flex, Row, Col, Image, theme } from 'antd';
+import { Switch, Flex, Row, Col } from 'antd';
 import { Link } from 'react-router';
-
-const Logo = () => {
-  const { token } = theme.useToken();
-
-  return (
-    <Image
-      src="https://shaharbest.com/logo.png"
-      alt="Logo"
-      style={{ height: token.fontSize * 1.5 }}
-      preview={false}
-    />
-  );
-};
+import Logo from './Logo.jsx';
 
 export default ({ isDark, setIsDark }) => (
   <Row>
