@@ -19,13 +19,16 @@
   },
   "meteor": {
     "mainModule": {
-      "client": "client/entry-meteor.jsx",
-      "server": "server/entry-meteor.js"
+      "client": "client/entry-meteor.tsx",
+      "server": "server/entry-meteor.ts"
     },
-    "testModule": "tests/main.js"
+    "testModule": "tests/main.ts"
   },
   "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.8.3",
     "vite": "^6.2.5"
   }
 }

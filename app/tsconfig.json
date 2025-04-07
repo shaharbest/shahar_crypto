@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["imports/*"],
+      "meteor/*": [
+        "node_modules/@types/meteor/*",
+        ".meteor/local/types/packages.d.ts"
+      ]
+    },
+    "preserveSymlinks": true
+  },
+  "include": ["imports", "client", "server"],
+  "exclude": ["node_modules", ".meteor"]
+}
