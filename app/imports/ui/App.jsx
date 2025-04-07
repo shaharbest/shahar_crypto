@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import {
-  ConfigProvider,
-  theme,
-  Layout,
-  Typography,
-  Switch,
-  Flex,
-} from 'antd';
+import { ConfigProvider, theme, Grid } from 'antd';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Main from './Main.jsx';
-
-const { Header } = Layout;
+import Layout from './Layout.jsx';
+import { BrowserRouter } from 'react-router';
 
 const queryClient = new QueryClient();
 
+const mainInlinePadding = {
+  sm: '1rem',
+  md: '2rem',
+};
+
 export const App = () => {
   const [isDark, setIsDark] = useState(true);
+  const breakpoint = Grid.useBreakpoint();
+  const inlinePadding = breakpoint.md ? mainInlinePadding.md : mainInlinePadding.sm;
+  const mainPadding = `0 ${inlinePadding}`;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -23,37 +23,24 @@ export const App = () => {
         theme={{
           algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
           components: {
-            Layout: { headerBg: isDark ? '#001529' : '#fff' },
+            Layout: {
+              headerBg: isDark ? '#001529' : '#fff',
+              footerPadding: `1rem ${inlinePadding}`,
+              headerPadding: `0 ${inlinePadding}`,
+              contentPadding: `0 ${inlinePadding}`,
+            },
             Statistic: {
               contentFontSize: '1rem',
-            } 
+            }
           },
         }}
       >
-        <Layout style={{ minHeight: '100vh' }} theme={isDark ? 'dark' : 'light'}>
-          <Header style={{ marginBlock: '0' }}>
-            <Flex
-              justify="space-between"
-              align="center"
-              style={{ height: '100%' }}
-            >
-              <img
-                src="https://shaharbest.com/logo.png"
-                alt="Logo"
-                style={{ width: '2rem', height: '2rem' }}
-              />
-              <Switch
-                size="default"
-                style={{ marginInlineStart: 'auto' }}
-                checkedChildren="Dark"
-                unCheckedChildren="Light"
-                checked={isDark}
-                onChange={(checked) => setIsDark(checked)}
-              />
-            </Flex>
-          </Header>
-          <Main />
-        </Layout>
+        <BrowserRouter>
+          <Layout
+            isDark={isDark}
+            setIsDark={setIsDark}
+          />
+        </BrowserRouter>
       </ConfigProvider>
     </QueryClientProvider>
   );
