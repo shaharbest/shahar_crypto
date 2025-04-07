@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 /**
  * These modules are automatically imported by jorgenvatle:vite.
  * You can commit these to your project or move them elsewhere if you'd like,

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Flex, Row, Col } from 'antd';
 import { Link } from 'react-router';
 import Logo from './Logo.jsx';

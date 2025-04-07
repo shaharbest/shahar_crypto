@@ -1,4 +1,3 @@
-import React from 'react';
 import { ConfigProvider, Typography } from 'antd';
 
 const { Title, Paragraph, Link } = Typography;

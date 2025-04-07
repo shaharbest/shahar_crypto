@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Flex,
   Image,
@@ -7,8 +6,21 @@ import {
   Result,
 } from 'antd';
 import { useQuery } from '@tanstack/react-query';
+import { ColumnType } from 'antd/es/table';
 
-const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=50&page=1';
+interface Coin {
+  id: string;
+  name: string;
+  image: string;
+  current_price: number;
+  market_cap: number;
+  total_volume: number;
+  price_change_percentage_24h: number;
+}
+
+const apiEndpoint = 'https://api.coingecko.com/api/v3/coins/markets';
+const apiParams = 'vs_currency=usd&order=volume_desc&per_page=50&page=1';
+const apiUrl = `${apiEndpoint}?${apiParams}`;
 
 const getCoins = async () => {
   const res = await fetch(apiUrl);
@@ -16,7 +28,7 @@ const getCoins = async () => {
   return await res.json();
 }
 
-const columns = [
+const columns: ColumnType<Coin>[] = [
   {
     title: 'Coin',
     dataIndex: 'image',
@@ -59,7 +71,10 @@ const columns = [
 ];
 
 export default () => {
-  const query = useQuery({ queryKey: ['coins'], queryFn: getCoins });
+  const query = useQuery({
+    queryKey: ['coins'],
+    queryFn: getCoins,
+  });
 
   if (query.isError) {
     return (
