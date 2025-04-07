@@ -1,4 +1,5 @@
 import { ConfigProvider, Typography } from 'antd';
+import TechList from './TechList';
 
 const { Title, Paragraph, Link } = Typography;
 
@@ -11,30 +12,22 @@ const githubLink = (
   </Link>
 );
 
-const techList = [
-  'Meteor 3',
-  'React',
-  'MongoDB',
-  'Docker',
-  'Vite',
-  'Typescript',
-];
-
 export default () => (
   <ConfigProvider theme={{ token: { fontSize: 24 } }}>
-    <Typography>
-      <Title style={{ textAlign: 'center' }}>
-        Shahar's Crypto App
-      </Title>
+    <Title>
+      Shahar's Crypto App
+    </Title>
 
-      <Paragraph>
-        The source of this app is available on github {githubLink}.
-      </Paragraph>
+    <Paragraph>
+      The source of this app is available on github {githubLink}.
+    </Paragraph>
 
-      <Paragraph>
-        The technology stack of this app:
-        <ul>{techList.map(tech => <li key={tech}>{tech}</li>)}</ul>
-      </Paragraph>
-    </Typography>
+    <Title level={3}>
+      Project Tech Stack
+    </Title>
+
+    <Paragraph>
+      <TechList />
+    </Paragraph>
   </ConfigProvider>
 );
