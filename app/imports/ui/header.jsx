@@ -1,18 +1,26 @@
 import React from 'react';
-import { Switch, Flex, Row, Col, Image } from 'antd';
+import { Switch, Flex, Row, Col, Image, theme } from 'antd';
 import { Link } from 'react-router';
+
+const Logo = () => {
+  const { token } = theme.useToken();
+
+  return (
+    <Image
+      src="https://shaharbest.com/logo.png"
+      alt="Logo"
+      style={{ height: token.fontSize * 1.5 }}
+      preview={false}
+    />
+  );
+};
 
 export default ({ isDark, setIsDark }) => (
   <Row>
     <Col flex="auto">
       <Flex align="middle" gap={16} style={{ height: '100%' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <Image
-            src="https://shaharbest.com/logo.png"
-            alt="Logo"
-            style={{ height: '2rem' }}
-            preview={false}
-          />
+          <Logo />
         </Link>
         <Link to="/coins">
           Coins

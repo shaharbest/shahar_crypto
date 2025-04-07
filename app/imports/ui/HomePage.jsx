@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'antd';
+import { ConfigProvider, Typography } from 'antd';
 
 const { Title, Paragraph, Link } = Typography;
 
@@ -12,26 +12,29 @@ const githubLink = (
   </Link>
 );
 
+const techList = [
+  'Meteor 3',
+  'React',
+  'MongoDB',
+  'Docker',
+  'Vite',
+];
+
 export default () => (
-  <Typography>
-    <Title style={{ textAlign: 'center' }}>
-      Shahar's Crypto App
-    </Title>
+  <ConfigProvider theme={{ token: { fontSize: 24 } }}>
+    <Typography>
+      <Title style={{ textAlign: 'center' }}>
+        Shahar's Crypto App
+      </Title>
 
-    <Paragraph>
-      The source of this app is available on gitHub {githubLink}.
-    </Paragraph>
+      <Paragraph>
+        The source of this app is available on github {githubLink}.
+      </Paragraph>
 
-    <Paragraph>
-      The technology stack of this app:
-
-      <ul>
-        <li>Meteor 3</li>
-        <li>React</li>
-        <li>MongoDB</li>
-        <li>Docker</li>
-      </ul>
-
-    </Paragraph>
-  </Typography>
+      <Paragraph>
+        The technology stack of this app:
+        <ul>{techList.map(tech => <li key={tech}>{tech}</li>)}</ul>
+      </Paragraph>
+    </Typography>
+  </ConfigProvider>
 );

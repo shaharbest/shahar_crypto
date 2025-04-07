@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, theme } from 'antd';
+import { ConfigProvider, Layout, theme } from 'antd';
 import Routes from './Routes.jsx';
 import HeaderContent from './header.jsx';
 import FooterContent from './footer.jsx';
@@ -14,10 +14,12 @@ export default ({ isDark, setIsDark }) => {
       style={{ minHeight: '100vh' }}
     >
       <Header>
-        <HeaderContent
-          isDark={isDark}
-          setIsDark={setIsDark}
-        />
+        <ConfigProvider theme={{ token: { fontSize: 14 * 2 } }}>
+          <HeaderContent
+            isDark={isDark}
+            setIsDark={setIsDark}
+          />
+        </ConfigProvider>
       </Header>
 
       <Content
