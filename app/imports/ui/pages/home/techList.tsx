@@ -8,7 +8,7 @@ import {
   SiTypescript,
 } from 'react-icons/si';
 
-const techList: { name: string; Icon: React.ElementType }[] = [
+const list: { name: string; Icon: React.ElementType }[] = [
   { name: 'Meteor 3', Icon: SiMeteor },
   { name: 'React', Icon: SiReact },
   { name: 'MongoDB', Icon: SiMongodb },
@@ -19,7 +19,7 @@ const techList: { name: string; Icon: React.ElementType }[] = [
 
 export default () => (
   <ul style={{ listStyle: 'none' }}>
-    {techList.map(({ name, Icon }) => (
+    {list.map(({ name, Icon }) => (
       <li
         key={name}
         style={{ marginInline: 0 }}

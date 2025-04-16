@@ -1,16 +1,7 @@
 import { ConfigProvider, Typography } from 'antd';
-import TechList from './TechList';
-
-const { Title, Paragraph, Link } = Typography;
-
-const githubLink = (
-  <Link
-    href="https://github.com/shaharbest/shahar_crypto"
-    target="_blank"
-  >
-    here
-  </Link>
-);
+import TechList from './techList';
+import SourceCodeLink from './sourceCodeLink';
+const { Title, Paragraph } = Typography;
 
 export default () => (
   <ConfigProvider theme={{ token: { fontSize: 24 } }}>
@@ -19,7 +10,7 @@ export default () => (
     </Title>
 
     <Paragraph>
-      This app's source code available {githubLink}.
+      This app's source code available <SourceCodeLink />.
     </Paragraph>
 
     <Title level={3}>
