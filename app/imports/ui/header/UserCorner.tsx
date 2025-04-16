@@ -27,11 +27,7 @@ export default () => {
   );
 
   return (
-    <Popover
-      placement="bottom"
-      content={content}
-      trigger="click"
-    >
+    <Popover placement="bottom" content={content} trigger="click">
       <div>
         <UserOutlined />
       </div>

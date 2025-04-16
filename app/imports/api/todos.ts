@@ -1,4 +1,4 @@
-import { Mongo } from "meteor/mongo";
+import { Mongo } from 'meteor/mongo';
 
 export interface Todo {
   _id?: string;
@@ -7,4 +7,4 @@ export interface Todo {
   userId: string;
 }
 
-export const TodosCollection = new Mongo.Collection<Todo>("todos");
+export const TodosCollection = new Mongo.Collection<Todo>('todos');

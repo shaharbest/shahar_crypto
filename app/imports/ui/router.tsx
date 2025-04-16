@@ -21,7 +21,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: '/coins', element: <Coins /> },
-      { path: '/todos', element: <ProtectedRoute><TodoList /></ProtectedRoute> },
+      {
+        path: '/todos',
+        element: (
+          <ProtectedRoute>
+            <TodoList />
+          </ProtectedRoute>
+        ),
+      },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
     ],

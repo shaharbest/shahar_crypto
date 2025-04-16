@@ -1,7 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import type { User } from '@/api/users';
-import { Roles } from "meteor/roles";
+import { Roles } from 'meteor/roles';
 
 Accounts.onCreateUser(async (_options, meteorUser: Meteor.User) => {
   const user = meteorUser as User;
@@ -24,8 +24,12 @@ Accounts.onCreateUser(async (_options, meteorUser: Meteor.User) => {
   }
 
   const usernameAdmins = Meteor.settings.adminUsernames;
-  if (usernameAdmins && user.username && usernameAdmins.includes(user.username)) {
-    await Roles.addUsersToRolesAsync(user._id, ["admin"]);
+  if (
+    usernameAdmins &&
+    user.username &&
+    usernameAdmins.includes(user.username)
+  ) {
+    await Roles.addUsersToRolesAsync(user._id, ['admin']);
   }
 
   return user;
@@ -35,7 +39,7 @@ Accounts.onCreateUser(async (_options, meteorUser: Meteor.User) => {
 Meteor.publish(null, function () {
   const userId = Meteor.userId();
   if (userId) {
-    return Meteor.roleAssignment.find({ "user._id": userId });
+    return Meteor.roleAssignment.find({ 'user._id': userId });
   }
   this.ready();
 });

@@ -4,7 +4,7 @@
  * but they must be imported somewhere in your Meteor entrypoint file.
  *
  * More info: https://github.com/JorgenVatle/meteor-vite#lazy-loaded-meteor-packages
-**/
+ **/
 import 'meteor/react-meteor-accounts';
 /** End of vite auto-imports **/
 

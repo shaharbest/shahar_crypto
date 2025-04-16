@@ -15,8 +15,9 @@ const mainInlinePadding = {
 export const App = () => {
   const [isDark, setIsDark] = useState(true);
   const breakpoint = Grid.useBreakpoint();
-  const inlinePadding =
-    breakpoint.md ? mainInlinePadding.md : mainInlinePadding.sm;
+  const inlinePadding = breakpoint.md
+    ? mainInlinePadding.md
+    : mainInlinePadding.sm;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -34,7 +35,7 @@ export const App = () => {
               },
               Statistic: {
                 contentFontSize: '1rem',
-              }
+              },
             },
           }}
         >

@@ -49,9 +49,7 @@ export default () => {
       <Form.Item
         label="Password"
         name="password"
-        rules={[
-          { required: true, message: 'Please input your password!' },
-        ]}
+        rules={[{ required: true, message: 'Please input your password!' }]}
       >
         <Input.Password />
       </Form.Item>
@@ -67,7 +65,9 @@ export default () => {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('The new password that you entered do not match!'));
+              return Promise.reject(
+                new Error('The new password that you entered do not match!'),
+              );
             },
           }),
         ]}

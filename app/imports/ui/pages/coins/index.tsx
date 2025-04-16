@@ -5,9 +5,7 @@ const { Title } = Typography;
 
 export default () => (
   <>
-    <Title style={{ textAlign: 'center' }}>
-      Coins Prices
-    </Title>
+    <Title style={{ textAlign: 'center' }}>Coins Prices</Title>
 
     <CoinsTable />
   </>

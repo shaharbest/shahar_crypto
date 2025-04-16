@@ -5,7 +5,8 @@
     "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
-    "visualize": "meteor --production --extra-packages bundle-visualizer"
+    "visualize": "meteor --production --extra-packages bundle-visualizer",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
@@ -36,6 +37,7 @@
     "@types/react-dom": "^19.1.1",
     "@vitejs/plugin-react": "^4.3.4",
     "babel-plugin-module-resolver": "^5.0.2",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vite": "^6.2.5"
   }

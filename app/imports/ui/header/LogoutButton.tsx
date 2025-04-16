@@ -5,9 +5,5 @@ export default () => {
   const navigate = useNavigate();
   const logout = () => Meteor.logout(() => navigate('/login'));
 
-  return (
-    <Link onClick={logout}>
-      Logout
-    </Link>
-  );
+  return <Link onClick={logout}>Logout</Link>;
 };

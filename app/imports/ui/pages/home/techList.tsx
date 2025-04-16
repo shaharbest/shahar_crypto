@@ -20,10 +20,7 @@ const list: { name: string; Icon: React.ElementType }[] = [
 export default () => (
   <ul style={{ listStyle: 'none' }}>
     {list.map(({ name, Icon }) => (
-      <li
-        key={name}
-        style={{ marginInline: 0 }}
-      >
+      <li key={name} style={{ marginInline: 0 }}>
         <Flex align="center">
           <Icon style={{ marginRight: 8 }} />
           {name}
@@ -32,4 +29,3 @@ export default () => (
     ))}
   </ul>
 );
-

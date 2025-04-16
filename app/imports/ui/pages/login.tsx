@@ -21,36 +21,25 @@ export default () => {
           }
         });
       }}
-      autoComplete='off'
+      autoComplete="off"
     >
       <Form.Item label={null}>
         <Title level={2}>Login</Title>
       </Form.Item>
-      <Form.Item
-        name='email'
-        label='Email'
-        required
-      >
+      <Form.Item name="email" label="Email" required>
         <Input />
       </Form.Item>
-      <Form.Item
-        name='password'
-        label='Password'
-        required
-      >
+      <Form.Item name="password" label="Password" required>
         <Input.Password />
       </Form.Item>
       <Form.Item label={null}>
         <Space>
-          <Button type='primary' htmlType='submit'>
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Button onClick={() => navigate('/register')}>
-            Register
-          </Button>
+          <Button onClick={() => navigate('/register')}>Register</Button>
         </Space>
       </Form.Item>
     </Form>
   );
 };
-

@@ -3,10 +3,7 @@ import { Typography } from 'antd';
 const { Paragraph, Link } = Typography;
 
 const shaharWebsiteLink = (
-  <Link
-    href="https://shaharbest.com"
-    target="_blank"
-  >
+  <Link href="https://shaharbest.com" target="_blank">
     Shahar Best
   </Link>
 );

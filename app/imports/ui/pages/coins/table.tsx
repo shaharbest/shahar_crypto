@@ -20,7 +20,7 @@ const getCoins = async () => {
   const res = await fetch(apiUrl);
   if (!res.ok) throw new Error('Network response was not ok');
   return await res.json();
-}
+};
 
 const columns: ColumnType<Coin>[] = [
   {
@@ -28,12 +28,7 @@ const columns: ColumnType<Coin>[] = [
     dataIndex: 'image',
     render: (image, coin) => (
       <Flex align="center" gap={8}>
-        <Image
-          src={image}
-          alt={coin.name}
-          width='2rem'
-          preview={false}
-        />
+        <Image src={image} alt={coin.name} width="2rem" preview={false} />
         {coin.name}
       </Flex>
     ),
@@ -41,25 +36,25 @@ const columns: ColumnType<Coin>[] = [
   {
     title: 'Price',
     dataIndex: 'current_price',
-    render: price => <Statistic value={price} prefix="$" />,
+    render: (price) => <Statistic value={price} prefix="$" />,
     align: 'right',
   },
   {
     title: 'Market Cap',
     dataIndex: 'market_cap',
-    render: marketCap => <Statistic value={marketCap} prefix="$" />,
+    render: (marketCap) => <Statistic value={marketCap} prefix="$" />,
     align: 'right',
   },
   {
     title: '24h Volume',
     dataIndex: 'total_volume',
-    render: volume => <Statistic value={volume} prefix="$" />,
+    render: (volume) => <Statistic value={volume} prefix="$" />,
     align: 'right',
   },
   {
     title: '24h Change',
     dataIndex: 'price_change_percentage_24h',
-    render: change => <Statistic value={change} suffix="%" />,
+    render: (change) => <Statistic value={change} suffix="%" />,
     align: 'right',
   },
 ];
@@ -72,11 +67,7 @@ export default () => {
 
   if (query.isError) {
     return (
-      <Result
-        status="error"
-        title="Error"
-        subTitle={query.error.message}
-      />
+      <Result status="error" title="Error" subTitle={query.error.message} />
     );
   }
 

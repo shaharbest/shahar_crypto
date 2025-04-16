@@ -16,7 +16,7 @@ export const UserSchema = z.object({
       z.object({
         address: z.string().email(),
         verified: z.boolean(),
-      })
+      }),
     )
     .optional(),
   createdAt: z.date().optional(),

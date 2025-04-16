@@ -12,18 +12,14 @@ export default () => {
   const factor = isMobile ? 3 : 2;
 
   return (
-    <Layout
-      style={{ minHeight: '100vh' }}
-    >
+    <Layout style={{ minHeight: '100vh' }}>
       <Header>
         <ConfigProvider theme={{ token: { fontSize: 14 * factor } }}>
           <HeaderContent />
         </ConfigProvider>
       </Header>
 
-      <Content
-        style={{ padding: token.Layout.contentPadding }}
-      >
+      <Content style={{ padding: token.Layout.contentPadding }}>
         <Outlet />
       </Content>
 

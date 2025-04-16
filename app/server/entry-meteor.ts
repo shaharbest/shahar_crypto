@@ -8,7 +8,7 @@
 import '../_vite-bundle/server/_entry.mjs';
 
 import { Meteor } from 'meteor/meteor';
-import { Roles } from "meteor/roles";
+import { Roles } from 'meteor/roles';
 import './api/module';
 
 Meteor.startup(async () => {
@@ -19,7 +19,6 @@ Meteor.startup(async () => {
 const createRoles = async () => {
   const roles = await Roles.getAllRoles().fetchAsync();
   if (!roles.length) {
-    await Roles.createRoleAsync("admin");
+    await Roles.createRoleAsync('admin');
   }
 };
-
