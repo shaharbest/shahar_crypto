@@ -1,9 +1,8 @@
 import { Switch } from 'antd';
-import { useIsDark, useSetIsDark } from '../hooks/dark';
+import { useDark } from '../hooks/dark';
 
 export default () => {
-  const isDark = useIsDark();
-  const setIsDark = useSetIsDark();
+  const { isDark, setIsDark } = useDark();
 
   return (
     <Switch
@@ -11,7 +10,7 @@ export default () => {
       checkedChildren="Dark"
       unCheckedChildren="Light"
       checked={isDark}
-      onChange={(checked) => setIsDark(checked)}
+      onChange={checked => setIsDark(checked)}
     />
   );
 };

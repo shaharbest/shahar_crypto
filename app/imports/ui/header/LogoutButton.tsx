@@ -1,9 +1,12 @@
-import { Meteor } from 'meteor/meteor';
 import { useNavigate, Link } from 'react-router';
+import { Meteor } from 'meteor/meteor';
 
 export default () => {
   const navigate = useNavigate();
-  const logout = () => Meteor.logout(() => navigate('/login'));
+  const logout = (e: React.MouseEvent) => {
+    e.preventDefault(); // prevent the "to" navigation
+    Meteor.logout(() => navigate('/login'));
+  };
 
-  return <Link onClick={logout}>Logout</Link>;
+  return <Link to="#" onClick={logout}>Logout</Link>;
 };

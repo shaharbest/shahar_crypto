@@ -1,15 +1,19 @@
+import { Suspense, lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
+import { useUser, useLoggingIn } from './hooks/users';
 import AppLayout from './layout';
-import Home from './pages/home';
-import Coins from './pages/coins';
-import TodoList from './pages/todos';
-import Login from './pages/login';
-import Register from './pages/register';
-import { useUser } from './hooks/users';
 
-const ProtectedRoute = ({ children }) => {
+const Home = lazy(() => import('./pages/home'));
+const Coins = lazy(() => import('./pages/coins'));
+const TodoList = lazy(() => import('./pages/todos'));
+const Login = lazy(() => import('./pages/login'));
+const Register = lazy(() => import('./pages/register'));
+
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
-  if (user === undefined) return <div>Loading...</div>;
+  const loggingIn = useLoggingIn();
+
+  if (loggingIn || user === undefined) return <div>Logging in...</div>;
   if (!user) return <Navigate to="/login" replace />;
   return <>{children}</>;
 };
@@ -17,9 +21,15 @@ const ProtectedRoute = ({ children }) => {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <AppLayout />,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <AppLayout />
+      </Suspense>
+    ),
     children: [
       { index: true, element: <Home /> },
+      { path: '/login', element: <Login /> },
+      { path: '/register', element: <Register /> },
       { path: '/coins', element: <Coins /> },
       {
         path: '/todos',
@@ -29,8 +39,6 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      { path: '/login', element: <Login /> },
-      { path: '/register', element: <Register /> },
     ],
   },
 ]);

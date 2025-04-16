@@ -28,15 +28,8 @@ export const DarkProvider = ({
   );
 };
 
-export const useIsDark = () => {
+export const useDark = () => {
   const context = useContext(ThemeContext);
-  if (!context) throw new Error('useIsDark must be used within a DarkProvider');
-  return context.isDark;
-};
-
-export const useSetIsDark = () => {
-  const context = useContext(ThemeContext);
-  if (!context)
-    throw new Error('useSetIsDark must be used within a DarkProvider');
-  return context.setIsDark;
+  if (!context) throw new Error('useDark must be used within a DarkProvider');
+  return context;
 };
