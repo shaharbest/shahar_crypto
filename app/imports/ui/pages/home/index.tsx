@@ -19,7 +19,7 @@ export default () => (
     </Title>
 
     <Paragraph>
-      The source of this app is available on github {githubLink}.
+      This app's source code available {githubLink}.
     </Paragraph>
 
     <Title level={3}>

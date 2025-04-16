@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Image,
-  Statistic,
-  Table,
-  Result,
-} from 'antd';
+import { Flex, Image, Statistic, Table, Result } from 'antd';
 import { useQuery } from '@tanstack/react-query';
 import { ColumnType } from 'antd/es/table';
 

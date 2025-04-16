@@ -1,16 +1,11 @@
-import {
-  ConfigProvider,
-  Layout,
-  theme,
-  Grid,
-} from 'antd';
-import Routes from './Routes.jsx';
-import HeaderContent from './header.jsx';
-import FooterContent from './footer.jsx';
+import { ConfigProvider, Layout, theme, Grid } from 'antd';
+import HeaderContent from './header';
+import FooterContent from './footer';
+import { Outlet } from 'react-router';
 
 const { Header, Content, Footer } = Layout;
 
-export default ({ isDark, setIsDark }) => {
+export default () => {
   const { token } = theme.useToken();
   const breakpoint = Grid.useBreakpoint();
   const isMobile = !breakpoint.lg;
@@ -22,17 +17,14 @@ export default ({ isDark, setIsDark }) => {
     >
       <Header>
         <ConfigProvider theme={{ token: { fontSize: 14 * factor } }}>
-          <HeaderContent
-            isDark={isDark}
-            setIsDark={setIsDark}
-          />
+          <HeaderContent />
         </ConfigProvider>
       </Header>
 
       <Content
         style={{ padding: token.Layout.contentPadding }}
       >
-        <Routes />
+        <Outlet />
       </Content>
 
       <Footer>

@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import CoinsTable from './CoinsTable.jsx';
+import CoinsTable from './table';
 
 const { Title } = Typography;
 

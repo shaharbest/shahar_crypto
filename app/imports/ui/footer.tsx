@@ -18,6 +18,6 @@ export default () => (
       margin: 0,
     }}
   >
-    <span>Created by</span> {shaharWebsiteLink}
+    Created by {shaharWebsiteLink}
   </Paragraph>
 );

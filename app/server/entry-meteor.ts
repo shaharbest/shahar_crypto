@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor';
-
 /**
  * These modules are automatically imported by jorgenvatle:vite.
  * You can commit these to your project or move them elsewhere if you'd like,
@@ -8,13 +6,20 @@ import { Meteor } from 'meteor/meteor';
  * More info: https://github.com/JorgenVatle/meteor-vite#lazy-loaded-meteor-packages
  **/
 import '../_vite-bundle/server/_entry.mjs';
-/** End of vite auto-imports **/
-/**
- * Import all your Meteor methods and publications.
- */
-// import '../imports/api/links/server';
-// ...
 
-Meteor.startup(() => {
-    console.log(`Meteor server started up successfully: ${Meteor.absoluteUrl()}`)
-})
+import { Meteor } from 'meteor/meteor';
+import { Roles } from "meteor/roles";
+import './api/module';
+
+Meteor.startup(async () => {
+  console.log('Server has started!');
+  await createRoles();
+});
+
+const createRoles = async () => {
+  const roles = await Roles.getAllRoles().fetchAsync();
+  if (!roles.length) {
+    await Roles.createRoleAsync("admin");
+  }
+};
+
