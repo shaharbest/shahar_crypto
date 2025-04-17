@@ -1,6 +1,18 @@
-import { Flex, Image, Statistic, Table, Result } from 'antd';
+import {
+  Flex,
+  Image,
+  Statistic,
+  Table,
+  Result,
+  ConfigProvider,
+  theme,
+} from 'antd';
 import { useQuery } from '@tanstack/react-query';
 import { ColumnType } from 'antd/es/table';
+
+function removeParenthesesPart(str) {
+  return str.replace(/\s*\(.*?\)\s*/g, ' ').trim().replace(/\s+/g, ' ');
+}
 
 interface Coin {
   id: string;
@@ -26,10 +38,12 @@ const columns: ColumnType<Coin>[] = [
   {
     title: 'Coin',
     dataIndex: 'image',
+    fixed: 'left',
     render: (image, coin) => (
       <Flex align="center" gap={8}>
         <Image src={image} alt={coin.name} width="2rem" preview={false} />
-        {coin.name}
+        {/* {coin.name} */}
+        {removeParenthesesPart(coin.name)}
       </Flex>
     ),
   },
@@ -45,12 +59,12 @@ const columns: ColumnType<Coin>[] = [
     render: (marketCap) => <Statistic value={marketCap} prefix="$" />,
     align: 'right',
   },
-  {
-    title: '24h Volume',
-    dataIndex: 'total_volume',
-    render: (volume) => <Statistic value={volume} prefix="$" />,
-    align: 'right',
-  },
+  // {
+  //   title: '24h Volume',
+  //   dataIndex: 'total_volume',
+  //   render: (volume) => <Statistic value={volume} prefix="$" />,
+  //   align: 'right',
+  // },
   {
     title: '24h Change',
     dataIndex: 'price_change_percentage_24h',
@@ -60,6 +74,8 @@ const columns: ColumnType<Coin>[] = [
 ];
 
 export default () => {
+  const { token } = theme.useToken();
+
   const query = useQuery({
     queryKey: ['coins'],
     queryFn: getCoins,
@@ -74,12 +90,23 @@ export default () => {
   const { data: coins } = query;
 
   return (
-    <Table
-      rowKey="id"
-      loading={query.isLoading}
-      dataSource={query.isLoading ? [] : coins}
-      pagination={false}
-      columns={columns}
-    />
+    <ConfigProvider
+      theme={{
+        // components: { Statistic: { contentFontSize: token.fontSize } },
+        components: { Statistic: { contentFontSize: 36 } },
+        token: {
+          fontSize: 36,
+        },
+      }}
+    >
+      <Table
+        rowKey="id"
+        loading={query.isLoading}
+        dataSource={query.isLoading ? [] : coins}
+        pagination={false}
+        columns={columns}
+        scroll={{ x: 1500 }}
+      />
+    </ConfigProvider>
   );
 };

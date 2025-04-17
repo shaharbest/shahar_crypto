@@ -3,7 +3,7 @@ import { client } from '@/api/client';
 import CloseOutlined from '@ant-design/icons/CloseOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export default () => {
   const [form] = Form.useForm();
@@ -14,18 +14,9 @@ export default () => {
   };
 
   return (
-    <Flex
-      style={{
-        maxWidth: '30rem',
-        marginInline: 'auto',
-      }}
-      vertical
-      gap="1rem"
-    >
-      <Title>My Todos List</Title>
+    <Flex vertical gap="1rem">
       <List
         locale={{ emptyText: 'No items' }}
-        size="large"
         bordered
         dataSource={todos}
         renderItem={({ text, isDone, _id: id }) => (

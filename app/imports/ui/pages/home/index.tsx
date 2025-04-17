@@ -1,20 +1,21 @@
-import { ConfigProvider, Typography } from 'antd';
+import { Typography } from 'antd';
 import TechList from './techList';
 import SourceCodeLink from './sourceCodeLink';
+import FontSizeProvider from '@/ui/font';
 const { Title, Paragraph } = Typography;
 
 export default () => (
-  <ConfigProvider theme={{ token: { fontSize: 24 } }}>
-    <Title>Shahar's Crypto App</Title>
+  <FontSizeProvider fontSize={24} fontSizeMobile={48}>
+    <Typography style={{ maxWidth: '70ch', marginInline: 'auto' }}>
+      <Title style={{ textAlign: 'center' }}>Shahar's Crypto App</Title>
 
-    <Paragraph>
-      This app's source code available <SourceCodeLink />.
-    </Paragraph>
+      <Paragraph>
+        This app's source code is available <SourceCodeLink />.
+      </Paragraph>
 
-    <Title level={3}>Project Tech Stack</Title>
-
-    <Paragraph>
-      <TechList />
-    </Paragraph>
-  </ConfigProvider>
+      <Paragraph>
+        <TechList />
+      </Paragraph>
+    </Typography>
+  </FontSizeProvider>
 );

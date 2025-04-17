@@ -8,7 +8,7 @@ import { useInlinePadding } from './hooks/layout';
 
 const queryClient = new QueryClient();
 
-export const App = () => {
+export default () => {
   const [isDark, setIsDark] = useState(true);
   const inlinePadding = useInlinePadding();
 
@@ -20,13 +20,10 @@ export const App = () => {
             algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
             components: {
               Layout: {
-                headerBg: isDark ? '#001529' : '#fff',
+                headerBg: 'transparent',
                 footerPadding: `1rem ${inlinePadding}`,
                 headerPadding: `0 ${inlinePadding}`,
                 headerHeight: 64 * 1.5,
-              },
-              Statistic: {
-                contentFontSize: 14,
               },
             },
           }}
