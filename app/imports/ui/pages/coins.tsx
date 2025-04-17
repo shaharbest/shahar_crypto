@@ -11,7 +11,10 @@ import { useQuery } from '@tanstack/react-query';
 import { ColumnType } from 'antd/es/table';
 
 function removeParenthesesPart(str) {
-  return str.replace(/\s*\(.*?\)\s*/g, ' ').trim().replace(/\s+/g, ' ');
+  return str
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
 }
 
 interface Coin {

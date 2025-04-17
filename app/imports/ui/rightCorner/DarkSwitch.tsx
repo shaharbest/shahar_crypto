@@ -10,7 +10,7 @@ export default () => {
       checkedChildren="Dark"
       unCheckedChildren="Light"
       checked={isDark}
-      onChange={checked => setIsDark(checked)}
+      onChange={(checked) => setIsDark(checked)}
     />
   );
 };

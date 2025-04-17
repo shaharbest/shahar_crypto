@@ -8,5 +8,9 @@ export default () => {
     Meteor.logout(() => navigate('/login'));
   };
 
-  return <Link to="#" onClick={logout}>Logout</Link>;
+  return (
+    <Link to="#" onClick={logout}>
+      Logout
+    </Link>
+  );
 };
