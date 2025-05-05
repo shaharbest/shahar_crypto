@@ -1,27 +1,28 @@
 import { useUser } from '@/ui/hooks/users';
-import { Link } from 'react-router';
 import LogoutButton from './LogoutButton';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Flex, Popover } from 'antd';
+import GoogleLogin from '../googleLoginBtn';
 
 export default () => {
   const user = useUser();
 
   if (!user) {
     return (
-      <Link to="/login">
-        <UserOutlined />
-      </Link>
+      <Popover placement="bottom" content={<div><GoogleLogin /></div>} trigger="click">
+        <div>
+          <UserOutlined />
+        </div>
+      </Popover>
     );
   }
 
-  const email = user?.emails?.[0]?.address;
-
-  if (!email) return null;
+  const profileName = user?.profile?.name;
+  if (!profileName) return null;
 
   const content = (
     <Flex vertical align="center">
-      {email}
+      {profileName}
       <LogoutButton />
     </Flex>
   );

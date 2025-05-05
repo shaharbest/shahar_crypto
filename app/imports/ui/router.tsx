@@ -7,7 +7,6 @@ const Home = lazy(() => import('./pages/home'));
 const Coins = lazy(() => import('./pages/coins'));
 const TodoList = lazy(() => import('./pages/todos'));
 const Login = lazy(() => import('./pages/login'));
-const Register = lazy(() => import('./pages/register'));
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
@@ -29,7 +28,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: '/login', element: <Login /> },
-      { path: '/register', element: <Register /> },
       { path: '/coins', element: <Coins /> },
       {
         path: '/todos',

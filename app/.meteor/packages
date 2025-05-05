@@ -22,4 +22,5 @@ jorgenvatle:vite
 zodern:types
 accounts-password
 react-meteor-accounts
-roles
+accounts-google
+service-configuration

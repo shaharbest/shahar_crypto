@@ -8,17 +8,11 @@
 import '../_vite-bundle/server/_entry.mjs';
 
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/roles';
 import './api/module';
+import { registerGoogleUsersService } from './users';
 
 Meteor.startup(async () => {
+  registerGoogleUsersService();
   console.log('Server has started!');
-  await createRoles();
 });
 
-const createRoles = async () => {
-  const roles = await Roles.getAllRoles().fetchAsync();
-  if (!roles.length) {
-    await Roles.createRoleAsync('admin');
-  }
-};
