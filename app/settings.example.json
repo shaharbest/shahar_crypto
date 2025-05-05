@@ -1,0 +1,8 @@
+{
+  "private": {
+    "google": {
+      "clientId": "your-client-id.apps.googleusercontent.com",
+      "secret": "your-client-secret"
+    }
+  }
+}
