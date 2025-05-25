@@ -19,8 +19,8 @@ export default ({
       onClick={({ key }) => navigate(key) && onClick?.()}
       items={[
         { key: '/', icon: <Logo /> },
-        { key: '/coins', label: 'Coins' },
         { key: '/todos', label: 'Todo List' },
+        { key: '/boards', label: 'Colab Boards' },
       ]}
     />
   );

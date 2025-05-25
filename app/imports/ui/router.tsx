@@ -4,8 +4,9 @@ import { useUser, useLoggingIn } from './hooks/users';
 import AppLayout from './layout';
 
 const Home = lazy(() => import('./pages/home'));
-const Coins = lazy(() => import('./pages/coins'));
 const TodoList = lazy(() => import('./pages/todos'));
+const Boards = lazy(() => import('./pages/colabBoards'));
+const Board = lazy(() => import('./pages/colabBoard'));
 const Login = lazy(() => import('./pages/login'));
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -27,10 +28,17 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <Home /> },
-      { path: '/login', element: <Login /> },
-      { path: '/coins', element: <Coins /> },
+      { path: 'login', element: <Login /> },
       {
-        path: '/todos',
+        path: "boards",
+        children: [
+          { index: true, element: <Boards /> },
+          { path: ":id", element: <Board /> },
+          { path: ':id/notes/:noteId', element: <Board /> },
+        ],
+      },
+      {
+        path: 'todos',
         element: (
           <ProtectedRoute>
             <TodoList />

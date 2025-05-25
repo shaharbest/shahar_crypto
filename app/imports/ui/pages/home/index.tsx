@@ -7,7 +7,7 @@ const { Title, Paragraph } = Typography;
 export default () => (
   <FontSizeProvider fontSize={24} fontSizeMobile={48}>
     <Typography style={{ maxWidth: '70ch', marginInline: 'auto' }}>
-      <Title style={{ textAlign: 'center' }}>Shahar's Crypto App</Title>
+      <Title style={{ textAlign: 'center' }}>Shahar's Colaboration App</Title>
 
       <Paragraph>
         This app's source code is available <SourceCodeLink />.
