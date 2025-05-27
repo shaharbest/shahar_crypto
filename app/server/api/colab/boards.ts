@@ -4,6 +4,10 @@ import { NotesCollection } from '@/api/colab/notes';
 import { Meteor } from 'meteor/meteor';
 import { z } from 'zod';
 
+function generateInviteToken() {
+  return Meteor.uuid?.() ?? Random.id(); // fallback for older Meteor setups
+}
+
 const BoardsModule = createModule('boards')
   .addMethod('create', z.string().min(1), async (title) => {
     const userId = Meteor.userId();
@@ -13,6 +17,7 @@ const BoardsModule = createModule('boards')
       title,
       ownerId: userId,
       sharedWith: [userId],
+      invites: [],
       createdAt: now,
       updatedAt: now,
     });
@@ -26,37 +31,87 @@ const BoardsModule = createModule('boards')
   .addMethod('delete', z.string(), async (id) => {
     const userId = Meteor.userId();
 
-    // check if the user is the owner of the board
     const board = await BoardsCollection.findOneAsync({ _id: id });
+    if (!board) throw new Meteor.Error('Board not found');
+    if (board.ownerId !== userId) throw new Meteor.Error('Not authorized');
 
-    if (!board) {
-      throw new Meteor.Error('Board not found');
-    }
-
-    if (board.ownerId !== userId) {
-      throw new Meteor.Error('Not authorized');
-    }
-
-    // return BoardsCollection.removeAsync({ _id: id, ownerId: Meteor.userId() });
-    // also remove all notes
-    
-    return await Promise.all([
+    return Promise.all([
       BoardsCollection.removeAsync({ _id: id }),
       NotesCollection.removeAsync({ boardId: id }),
     ]);
   })
 
   .addMethod('clearAllNotes', z.string(), async (id) => {
-    // return BoardsCollection.removeAsync({ _id: id, ownerId: Meteor.userId() });
     await NotesCollection.removeAsync({ boardId: id });
   })
 
-  .addMethod('shareWith', z.object({ id: z.string(), userId: z.string() }), async ({ id, userId }) => {
-    return BoardsCollection.updateAsync(
-      { _id: id, ownerId: Meteor.userId() },
-      { $addToSet: { sharedWith: userId }, $set: { updatedAt: new Date() } }
-    );
-  })
+  .addMethod(
+    'shareWith',
+    z.object({ id: z.string(), email: z.string().email() }),
+    async ({ id, email }) => {
+      const ownerId = Meteor.userId();
+
+      const board = await BoardsCollection.findOneAsync({ _id: id });
+      if (!board || board.ownerId !== ownerId) {
+        throw new Meteor.Error('Not authorized');
+      }
+
+      const user = await Meteor.users.findOneAsync({
+        'services.google.email': email,
+      });
+
+      if (user) {
+        // User exists: add by userId
+        return BoardsCollection.updateAsync(
+          { _id: id },
+          {
+            $addToSet: { sharedWith: user._id },
+            $set: { updatedAt: new Date() },
+          }
+        );
+      } else {
+        // User not found: create invite token
+        const token = generateInviteToken();
+
+        await BoardsCollection.updateAsync(
+          { _id: id },
+          {
+            $addToSet: {
+              invites: {
+                token,
+                email,
+                createdAt: new Date(),
+              },
+            },
+            $set: { updatedAt: new Date() },
+          }
+        );
+
+        return { status: 'invited', token };
+      }
+    }
+  )
+
+  .addMethod(
+    'revokeInvite',
+    z.object({ boardId: z.string(), token: z.string() }),
+    async ({ boardId, token }) => {
+      const userId = Meteor.userId();
+      const board = await BoardsCollection.findOneAsync({ _id: boardId });
+
+      if (!board || board.ownerId !== userId) {
+        throw new Meteor.Error('Not authorized');
+      }
+
+      return BoardsCollection.updateAsync(
+        { _id: boardId },
+        {
+          $pull: { invites: { token } },
+          $set: { updatedAt: new Date() },
+        }
+      );
+    }
+  )
 
   .addPublication('mine', z.void(), () => {
     const userId = Meteor.userId();

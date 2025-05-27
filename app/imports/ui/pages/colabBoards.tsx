@@ -1,6 +1,7 @@
 import { Button, Form, List, Input, Card, Modal } from 'antd';
 import { client } from '@/api/client';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
+import CloseOutlined from '@ant-design/icons/CloseOutlined';
 import { Link } from 'react-router';
 import { useState } from 'react';
 
@@ -12,6 +13,10 @@ export default () => {
   const onCreate = (values: Values) => {
     client.boards.create(values.title);
     setOpen(false);
+  };
+
+  const shareBoard = (id, email) => {
+    client.boards.shareWith({ id, email });
   };
 
   return (
@@ -30,12 +35,19 @@ export default () => {
             <Card
               title={<Link to={`/boards/${b._id}`}>{b.title}</Link>}
               extra={
-                <Button
-                  onClick={() => client.boards.delete(b._id)}
-                  danger
-                >
-                  Delete
-                </Button>
+                <>
+                  <Button
+                    onClick={() => client.boards.delete(b._id)}
+                    danger
+                    icon={<CloseOutlined />}
+                  />
+                  {/* <Button */}
+                  {/*   onClick={() => shareBoard(b._id, 'bestshahar9@gmail.com')} */}
+                  {/*   style={{ marginBottom: '1rem' }} */}
+                  {/* > */}
+                  {/*   Test */}
+                  {/* </Button> */}
+                </>
               }
             >
               Board Details...

@@ -18,7 +18,7 @@ export default () => {
     <Layout style={{ minHeight: '100vh' }}>
       <Header style={{ backgroundColor: pita.token.colorBgContainer }}>
         <ConfigProvider theme={{ token: { fontSize: 14 * factor } }}>
-          <Row align="middle">
+          <Row align="middle" wrap={false}>
             <Col flex="auto">
               <Menu mode="horizontal" />
             </Col>

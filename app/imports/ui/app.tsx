@@ -3,13 +3,30 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from 'react-router';
 import router from './router';
 import { DarkProvider } from './hooks/dark';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInlinePadding } from './hooks/layout';
 
 const queryClient = new QueryClient();
 
+// Custom hook to detect system theme
+const useSystemTheme = () => {
+  const [isDark, setIsDark] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => setIsDark(e.matches);
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return [isDark, setIsDark];
+};
+
 export default () => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useSystemTheme();
   const inlinePadding = useInlinePadding();
 
   return (
@@ -28,7 +45,7 @@ export default () => {
             },
           }}
         >
-          <RouterProvider router={router} />
+          <RouterProvider router={router} style={{ border: '1px solid red' }} />
         </ConfigProvider>
       </DarkProvider>
     </QueryClientProvider>
