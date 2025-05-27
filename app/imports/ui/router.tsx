@@ -32,9 +32,9 @@ const router = createBrowserRouter([
       {
         path: "boards",
         children: [
-          { index: true, element: <Boards /> },
-          { path: ":id", element: <Board /> },
-          { path: ':id/notes/:noteId', element: <Board /> },
+          { index: true, element: <ProtectedRoute><Boards /></ProtectedRoute> },
+          { path: ":id", element: <ProtectedRoute><Board /></ProtectedRoute> },
+          { path: ':id/notes/:noteId', element: <ProtectedRoute><Board /></ProtectedRoute> },
         ],
       },
       {

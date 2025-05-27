@@ -14,7 +14,14 @@ export default () => {
   };
 
   return (
-    <Flex vertical gap="1rem">
+    <Flex
+      vertical
+      gap="1rem"
+      style={{
+        maxWidth: '50rem',
+        marginInline: 'auto',
+      }}
+    >
       <List
         locale={{ emptyText: 'No items' }}
         bordered
